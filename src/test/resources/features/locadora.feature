@@ -5,11 +5,13 @@ Funcionalidade: Locadora
 Como um usuário
 Eu quero cadastrar alugueis de filmes 
 Para controlar precos e datas de entrega
-
-  @alugar_filme
+	  
+	@alugar_filme
   Cenario: Deve alugar um filme com sucesso
-	  Dado um filme com estoque de 2 unidades
-	  E que o preco de aluguel seja R$ 3
+	  Dado um filme 
+	  	|estoque| 2    |
+	  	|preco  | 3    |
+	  	|tipo	  | comum|
 	  Quando alugar 
 	  Entao o preco do aluguel sera R$ 3
 	  E a data de entrega sera em 1 dia
@@ -21,25 +23,20 @@ Para controlar precos e datas de entrega
 	  Quando alugar 
 	  Entao nao sera possivel por falta de estoque
 	  E o estoque do filme sera 0 unidades
-	  
-	@aluguel_filme_categoria_comum
-	Cenario: Deve alugar para categoria comum
-		Dado um filme com estoque de 2 unidades 
-		E que o preco de aluguel seja R$ 4
-		E o tipo do aluguel seja comum
+
+ 	@aluguel_filme_conforme_condicoes
+	Esquema do Cenario: Deve alugar um filme conforme condicoes
+		Dado um filme com estoque de <estoque> unidades 
+		E que o preco de aluguel seja R$ <preco>
+		E o tipo do aluguel seja <tipo>
 		Quando alugar
-		Entao o preco do aluguel sera R$ 4
+		Entao o preco do aluguel sera R$ <valor>
 		E o estoque do filme sera 1 unidades
-		E a data de entrega sera em 1 dias 
-		E a pontuacao recebida sera de 1 ponto
-	
-	@aluguel_filme_categoria_extendida
-	Cenario: Deve dar condicoes especiais para categoria extendida
-		Dado um filme com estoque de 2 unidades 
-		E que o preco de aluguel seja R$ 4
-		E o tipo do aluguel seja extendido
-		Quando alugar
-		Entao o preco do aluguel sera R$ 8
-		E o estoque do filme sera 1 unidades
-		E a data de entrega sera em 3 dias 
-		E a pontuacao recebida sera de 2 pontos
+		E a data de entrega sera em <qtdDias> dias 
+		E a pontuacao recebida sera de <pontuacao> pontos
+		
+	  Exemplos:	
+		|estoque |preco |tipo			 |valor|qtdDias|pontuacao|
+		|2			 |4		  |extendido |8		 |3			 |2				 |	
+		|2			 |4		  |comum     |4		 |1			 |1				 |
+		|2			 |5	    |semanal   |15   |7			 |3				 |	
